@@ -9,12 +9,12 @@
         aria-expanded="true"
         aria-controls="collapseOne"
       >
-        Accordion Item #1
+        Work Files
       </button>
     </h2>
     <div
       id="collapseOne"
-      class="accordion-collapse collapse show"
+      class="accordion-collapse collapse"
       aria-labelledby="headingOne"
       data-bs-parent="#accordionExample"
     >
@@ -39,7 +39,7 @@
         aria-expanded="false"
         aria-controls="collapseTwo"
       >
-        Accordion Item #2
+        Client Files
       </button>
     </h2>
     <div
@@ -70,7 +70,7 @@
         aria-expanded="false"
         aria-controls="collapseThree"
       >
-        Accordion Item #3
+        Misc Files
       </button>
     </h2>
     <div
