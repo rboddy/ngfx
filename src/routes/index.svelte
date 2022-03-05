@@ -1,8 +1,10 @@
 <script>
   import Header from "$lib/components/layout/header.svelte";
   import FileDeck from "$lib/components/content/filedeck.svelte";
+  import Navbar from "$lib/components/layout/navbar.svelte";
 </script>
 
+<Navbar />
 <Header text="Next Gen File Explorer" />
 <FileDeck />
 
