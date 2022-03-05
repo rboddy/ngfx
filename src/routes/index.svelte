@@ -2,6 +2,8 @@
   import Header from "$lib/components/layout/header.svelte";
   import FileDeck from "$lib/components/content/filedeck.svelte";
   import Navbar from "$lib/components/layout/navbar.svelte";
+
+  import App from "./fb";
 </script>
 
 <Navbar />

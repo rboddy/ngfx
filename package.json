@@ -13,5 +13,8 @@
     "@sveltejs/kit": "next",
     "svelte": "^3.44.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "firebase": "^9.6.8"
+  }
 }
