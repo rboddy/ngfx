@@ -3,24 +3,26 @@
 
   import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-  function login() {
-    let email = document.getElementById("emailInput").value;
-    let password = document.getElementById("passInput").value;
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        goto("/");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
-
   export let title;
+
+  function login() {
+    if (title == "login") {
+      let email = document.getElementById("emailInput").value;
+      let password = document.getElementById("passInput").value;
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          goto("/");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    }
+  }
 </script>
 
 <div class="login">
@@ -35,6 +37,7 @@
             class="form-control"
             id="emailInput"
             aria-describedby="emailHelp"
+            placeholder="Email Address"
           />
           {#if title != "Login"}
             <div id="emailHelp" class="form-text">
@@ -44,13 +47,20 @@
         </div>
         <div class="mb-3">
           <label for="passInput" class="form-label">Password</label>
-          <input type="password" class="form-control" id="passInput" />
+          <input
+            type="password"
+            class="form-control"
+            id="passInput"
+            placeholder="Password"
+          />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-      <p class="float-end mt-3">
-        Not a user? <a href="/signup" class="card-link">Sign Up</a>
-      </p>
+      {#if title == "Login"}
+        <p class="float-end mt-3">
+          Not a user? <a href="/signup" class="card-link">Sign Up</a>
+        </p>
+      {/if}
     </div>
   </div>
 </div>
