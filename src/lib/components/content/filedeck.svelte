@@ -1,8 +1,29 @@
+<script>
+  import Filetable from "./filetable.svelte";
+  import { getStorage, ref, getMetadata, listAll } from "firebase/storage";
+
+  const storage = getStorage();
+  const workFilesRef = ref(storage, 'work')
+  const workFileObjs = []
+
+  listAll(workFilesRef)
+  .then((res) => {
+    res.items.forEach((itemRef) => {
+      getMetadata(itemRef).then(metaData => {
+        workFileObjs.push(metaData);
+      })
+    });
+  }).catch((error) => {
+    // Uh-oh, an error occurred!
+  });
+
+</script>
+
 <div class="accordion accordion-flush" id="fileAccordion">
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingOne">
       <button
-        class="accordion-button collapsed"
+        class="accordion-button collapsed fw-bold"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#flush-collapseOne"
@@ -18,16 +39,14 @@
       aria-labelledby="flush-headingOne"
     >
       <div class="accordion-body">
-        Placeholder content for this accordion, which is intended to demonstrate
-        the <code>.accordion-flush</code> class. This is the first item's accordion
-        body.
+        <Filetable data={workFileObjs}/>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingTwo">
       <button
-        class="accordion-button collapsed"
+        class="accordion-button collapsed fw-bold"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#flush-collapseTwo"
@@ -52,7 +71,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingOne">
       <button
-        class="accordion-button collapsed"
+        class="accordion-button collapsed fw-bold"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#flush-collapseThree"
@@ -77,7 +96,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingThree">
       <button
-        class="accordion-button collapsed"
+        class="accordion-button collapsed fw-bold"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#flush-collapseFour"
