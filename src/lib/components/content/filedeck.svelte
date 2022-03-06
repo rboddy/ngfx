@@ -3,19 +3,28 @@
   import { getStorage, ref, getMetadata, listAll } from "firebase/storage";
 
   const storage = getStorage();
-  const workFilesRef = ref(storage, 'work')
-  const workFileObjs = []
+  // const workFilesRef = ref(storage, 'work')
+  const refs = ['work', 'clients', 'pictures', 'misc'];
+  let files = {
+    work: [],
+    clients: [],
+    pictures: [],
+    misc: []
+  };
 
-  listAll(workFilesRef)
-  .then((res) => {
-    res.items.forEach((itemRef) => {
-      getMetadata(itemRef).then(metaData => {
-        workFileObjs.push(metaData);
+  refs.forEach((folder) => {
+    let reference = ref(storage, folder);
+    listAll(reference)
+    .then((res) => {
+      res.items.forEach((itemRef) => {
+        getMetadata(itemRef).then(metaData => {
+        files[folder] = [...files[folder], metaData]
       })
     });
-  }).catch((error) => {
-    // Uh-oh, an error occurred!
-  });
+    }).catch((error) => {
+      // Uh-oh, an error occurred!
+    });
+  })
 
 </script>
 
@@ -39,7 +48,7 @@
       aria-labelledby="flush-headingOne"
     >
       <div class="accordion-body">
-        <Filetable data={workFileObjs}/>
+        <Filetable data={files.work}/>
       </div>
     </div>
   </div>
@@ -62,9 +71,7 @@
       aria-labelledby="flush-headingTwo"
     >
       <div class="accordion-body">
-        Placeholder content for this accordion, which is intended to demonstrate
-        the <code>.accordion-flush</code> class. This is the second item's accordion
-        body. Let's imagine this being filled with some actual content.
+        <Filetable data={files.clients}/>
       </div>
     </div>
   </div>
@@ -87,9 +94,7 @@
       aria-labelledby="flush-headingOne"
     >
       <div class="accordion-body">
-        Placeholder content for this accordion, which is intended to demonstrate
-        the <code>.accordion-flush</code> class. This is the first item's accordion
-        body.
+        <Filetable data={files.pictures}/>
       </div>
     </div>
   </div>
@@ -112,11 +117,7 @@
       aria-labelledby="flush-headingThree"
     >
       <div class="accordion-body">
-        Placeholder content for this accordion, which is intended to demonstrate
-        the <code>.accordion-flush</code> class. This is the third item's accordion
-        body. Nothing more exciting happening here in terms of content, but just
-        filling up the space to make it look, at least at first glance, a bit more
-        representative of how this would look in a real-world application.
+        <Filetable data={files.misc}/>
       </div>
     </div>
   </div>
