@@ -46,7 +46,10 @@
         <th scope="row">{name}</th>
         <td>{timeCreated}</td>
         <td>{bytesToSize(size)}</td>
-        <td><button class="btn btn-primary" on:click={() => downloadFile(`${folder}/${name}`)}>Download</button></td>
+        <td>
+            <button class="btn btn-primary" on:click={() => downloadFile(`${folder}/${name}`)}>Download</button>
+            <button class="btn btn-danger">Delete</button>
+        </td>
       </tr>
       {/each}
     </tbody>
