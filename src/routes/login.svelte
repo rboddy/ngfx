@@ -1,16 +1,38 @@
+<script>
+  import { goto } from "$app/navigation";
+
+  import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+  function login() {
+    let email = document.getElementById("emailInput").value;
+    let password = document.getElementById("passInput").value;
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        goto("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(`${errorCode}: ${errorMessage}`);
+      });
+  }
+</script>
+
 <div class="login">
   <div class="card">
     <div class="card-body login-form">
       <h5 class="card-title">Login</h5>
-      <form>
+      <form on:submit|preventDefault={login}>
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
+          <label for="emailInput" class="form-label">Email address</label>
           <input
             type="email"
             class="form-control"
-            id="exampleInputEmail1"
+            id="emailInput"
             aria-describedby="emailHelp"
           />
           <div id="emailHelp" class="form-text">
@@ -18,12 +40,8 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
+          <label for="passInput" class="form-label">Password</label>
+          <input type="password" class="form-control" id="passInput" />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
