@@ -7,4 +7,9 @@
       >My Website</a
     >
   </li>
+  <li class="nav-item">
+    <a class="nav-link" target="_blank" href="https://ryanboddy.net"
+      >My Website</a
+    >
+  </li>
 </ul>
