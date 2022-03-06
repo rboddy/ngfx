@@ -4,7 +4,7 @@
 import { onMount } from "svelte";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { userId } from "../../../stores/authStore"
-import { get } from "svelte/store"
+import { get } from "svelte/store";
 
 const storage = getStorage();
 

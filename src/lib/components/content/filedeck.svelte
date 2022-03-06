@@ -4,7 +4,6 @@
   import { getStorage, ref, getMetadata, listAll } from "firebase/storage";
 
   const storage = getStorage();
-  // const workFilesRef = ref(storage, 'work')
   const refs = ["work", "clients", "pictures", "misc"];
   let files = {
     work: [],
