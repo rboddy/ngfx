@@ -2,13 +2,26 @@
     // If you are using JavaScript/ECMAScript modules:
     import Dropzone from "dropzone";
 import { onMount } from "svelte";
+import { userId } from "../../../stores/authStore"
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
+const storage = getStorage();
 
 export let folder;
 
     onMount(() => {
+
+        let path = '';
+        userId.subscribe((value) => {
+            path = `${value}/${folder}/`
+        })
+
         let myDropzone = new Dropzone(`#my-form-${folder}`);
         myDropzone.on("addedfile", upload => {
-        console.log(upload);
+            let storageRef = ref(storage, `${path}/${upload.name}`);
+            uploadBytes(storageRef, upload).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        });
     });
     });
 </script>
