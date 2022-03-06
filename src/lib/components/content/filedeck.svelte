@@ -138,3 +138,10 @@
     </div>
   </div>
 </div>
+
+<style>
+  .accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0, 0, 0, 0.125);
+  }
+</style>
