@@ -3,8 +3,10 @@
     import Dropzone from "dropzone";
 import { onMount } from "svelte";
 
+export let folder;
+
     onMount(() => {
-        let myDropzone = new Dropzone("#my-form");
+        let myDropzone = new Dropzone(`#my-form-${folder}`);
         myDropzone.on("addedfile", upload => {
         console.log(upload);
     });
@@ -12,7 +14,7 @@ import { onMount } from "svelte";
 </script>
 
 <!-- Example of a form that Dropzone can take over -->
-<form action="/target" class="dropzone" id="my-form"></form>
+<form action="/target" class="dropzone" id='my-form-{folder}'></form>
 
 <style>
     .dropzone {
