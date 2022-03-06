@@ -1,20 +1,17 @@
 <script>
-  import Header from "$lib/components/layout/header.svelte";
   import FileDeck from "$lib/components/content/filedeck.svelte";
-  import Navbar from "$lib/components/layout/navbar.svelte";
 
-  import App from "./fb";
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import { goto } from "$app/navigation";
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+    } else {
+      goto("/login");
+    }
+  });
 </script>
 
-<Navbar />
-<Header text="Next Gen File Explorer" />
 <FileDeck />
-
-<style>
-  :global(body) {
-    font-family: "Open Sans", sans-serif;
-    width: 75%;
-    margin: 0 auto;
-    background-color: #f7f7f7;
-  }
-</style>
