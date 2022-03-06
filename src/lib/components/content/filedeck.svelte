@@ -1,5 +1,6 @@
 <script>
   import Filetable from "./filetable.svelte";
+  import UploadRow from "./uploadRow.svelte";
   import { getStorage, ref, getMetadata, listAll } from "firebase/storage";
 
   const storage = getStorage();
@@ -46,12 +47,12 @@
       id="flush-collapseOne"
       class="accordion-collapse collapse"
       aria-labelledby="flush-headingOne"
+      data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
+        <UploadRow />
         {#if files.work.length > 0}
           <Filetable data={files.work} folder="work" />
-        {:else}
-          <h5>Nothing here yet!</h5>
         {/if}
       </div>
     </div>
@@ -73,12 +74,12 @@
       id="flush-collapseTwo"
       class="accordion-collapse collapse"
       aria-labelledby="flush-headingTwo"
+      data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
+        <UploadRow />
         {#if files.clients.length > 0}
           <Filetable data={files.clients} folder="clients" />
-        {:else}
-          <h5>Nothing here yet!</h5>
         {/if}
       </div>
     </div>
@@ -100,12 +101,12 @@
       id="flush-collapseThree"
       class="accordion-collapse collapse"
       aria-labelledby="flush-headingOne"
+      data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
+        <UploadRow />
         {#if files.pictures.length > 0}
           <Filetable data={files.pictures} folder="pictures" />
-        {:else}
-          <h5>Nothing here yet!</h5>
         {/if}
       </div>
     </div>
@@ -127,12 +128,12 @@
       id="flush-collapseFour"
       class="accordion-collapse collapse"
       aria-labelledby="flush-headingThree"
+      data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
+        <UploadRow />
         {#if files.misc.length > 0}
           <Filetable data={files.misc} folder="misc" />
-        {:else}
-          <h5>Nothing here yet!</h5>
         {/if}
       </div>
     </div>

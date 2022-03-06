@@ -15,6 +15,7 @@
   },
   "type": "module",
   "dependencies": {
+    "dropzone": "^6.0.0-beta.2",
     "firebase": "^9.6.8"
   }
 }
