@@ -1,15 +1,20 @@
 <script>
   import { goto } from "$app/navigation";
 
-  import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+  } from "firebase/auth";
 
   export let title;
 
+  const auth = getAuth();
+
   function login() {
+    let email = document.getElementById("emailInput").value;
+    let password = document.getElementById("passInput").value;
     if (title == "Login") {
-      let email = document.getElementById("emailInput").value;
-      let password = document.getElementById("passInput").value;
-      const auth = getAuth();
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
