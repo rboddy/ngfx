@@ -6,7 +6,7 @@
   export let title;
 
   function login() {
-    if (title == "login") {
+    if (title == "Login") {
       let email = document.getElementById("emailInput").value;
       let password = document.getElementById("passInput").value;
       const auth = getAuth();
