@@ -34,6 +34,7 @@
     width: 75%;
     margin: 0 auto;
     background-color: #f7f7f7;
+    /* border: 1px solid black; */
   }
   @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     :global(body) {
