@@ -1,6 +1,7 @@
 <script>
   import { goto } from "$app/navigation";
   import { getAuth, signOut } from "firebase/auth";
+  import { isLoggedIn } from "../../../stores/authStore";
 
   const auth = getAuth();
 
@@ -24,13 +25,14 @@
       >My Website</a
     >
   </li>
-
-  <li class="nav-item">
-    <a
-      class="nav-link"
-      on:click|preventDefault={logout}
-      target="_blank"
-      href="/">Sign Out</a
-    >
-  </li>
+  {#if $isLoggedIn}
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        on:click|preventDefault={logout}
+        target="_blank"
+        href="/">Sign Out</a
+      >
+    </li>
+  {/if}
 </ul>
