@@ -48,7 +48,7 @@
       aria-labelledby="flush-headingOne"
     >
       <div class="accordion-body">
-        <Filetable data={files.work}/>
+        <Filetable data={files.work} folder="work"/>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
       aria-labelledby="flush-headingTwo"
     >
       <div class="accordion-body">
-        <Filetable data={files.clients}/>
+        <Filetable data={files.clients} folder="clients"/>
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@
       aria-labelledby="flush-headingOne"
     >
       <div class="accordion-body">
-        <Filetable data={files.pictures}/>
+        <Filetable data={files.pictures} folder="pictures"/>
       </div>
     </div>
   </div>
@@ -117,7 +117,7 @@
       aria-labelledby="flush-headingThree"
     >
       <div class="accordion-body">
-        <Filetable data={files.misc}/>
+        <Filetable data={files.misc} folder="misc"/>
       </div>
     </div>
   </div>
