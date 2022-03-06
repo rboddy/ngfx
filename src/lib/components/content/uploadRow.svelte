@@ -4,6 +4,7 @@
 import { onMount } from "svelte";
 import { userId } from "../../../stores/authStore"
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { get } from "svelte/store"
 
 const storage = getStorage();
 
@@ -11,10 +12,7 @@ export let folder;
 
     onMount(() => {
 
-        let path = '';
-        userId.subscribe((value) => {
-            path = `${value}/${folder}/`
-        })
+        const path = `${get(userId)}/${folder}`;
 
         let myDropzone = new Dropzone(`#my-form-${folder}`);
         myDropzone.on("addedfile", upload => {
