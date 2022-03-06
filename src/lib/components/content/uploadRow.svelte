@@ -2,8 +2,8 @@
     // If you are using JavaScript/ECMAScript modules:
     import Dropzone from "dropzone";
 import { onMount } from "svelte";
-import { userId } from "../../../stores/authStore"
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { userId } from "../../../stores/authStore"
 import { get } from "svelte/store"
 
 const storage = getStorage();
