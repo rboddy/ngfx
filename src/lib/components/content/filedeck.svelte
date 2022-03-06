@@ -4,33 +4,33 @@
 
   const storage = getStorage();
   // const workFilesRef = ref(storage, 'work')
-  const refs = ['work', 'clients', 'pictures', 'misc'];
+  const refs = ["work", "clients", "pictures", "misc"];
   let files = {
     work: [],
     clients: [],
     pictures: [],
-    misc: []
+    misc: [],
   };
 
   refs.forEach((folder) => {
     let reference = ref(storage, folder);
     listAll(reference)
-    .then((res) => {
-      res.items.forEach((itemRef) => {
-        getMetadata(itemRef).then(metaData => {
-        files[folder] = [...files[folder], metaData]
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          getMetadata(itemRef).then((metaData) => {
+            files[folder] = [...files[folder], metaData];
+          });
+        });
       })
-    });
-    }).catch((error) => {
-      // Uh-oh, an error occurred!
-    });
-  })
-
+      .catch((error) => {
+        // Uh-oh, an error occurred!
+      });
+  });
 </script>
 
 <div class="accordion accordion-flush" id="fileAccordion">
   <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingOne">
+    <h5 class="accordion-header" id="flush-headingOne">
       <button
         class="accordion-button collapsed fw-bold"
         type="button"
@@ -41,19 +41,23 @@
       >
         Work Files
       </button>
-    </h2>
+    </h5>
     <div
       id="flush-collapseOne"
       class="accordion-collapse collapse"
       aria-labelledby="flush-headingOne"
     >
       <div class="accordion-body">
-        <Filetable data={files.work} folder="work"/>
+        {#if files.work.length > 0}
+          <Filetable data={files.work} folder="work" />
+        {:else}
+          <h5>Nothing here yet!</h5>
+        {/if}
       </div>
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingTwo">
+    <h5 class="accordion-header" id="flush-headingTwo">
       <button
         class="accordion-button collapsed fw-bold"
         type="button"
@@ -64,19 +68,23 @@
       >
         Client Files
       </button>
-    </h2>
+    </h5>
     <div
       id="flush-collapseTwo"
       class="accordion-collapse collapse"
       aria-labelledby="flush-headingTwo"
     >
       <div class="accordion-body">
-        <Filetable data={files.clients} folder="clients"/>
+        {#if files.clients.length > 0}
+          <Filetable data={files.clients} folder="clients" />
+        {:else}
+          <h5>Nothing here yet!</h5>
+        {/if}
       </div>
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingOne">
+    <h5 class="accordion-header" id="flush-headingOne">
       <button
         class="accordion-button collapsed fw-bold"
         type="button"
@@ -87,19 +95,23 @@
       >
         Pictures
       </button>
-    </h2>
+    </h5>
     <div
       id="flush-collapseThree"
       class="accordion-collapse collapse"
       aria-labelledby="flush-headingOne"
     >
       <div class="accordion-body">
-        <Filetable data={files.pictures} folder="pictures"/>
+        {#if files.pictures.length > 0}
+          <Filetable data={files.pictures} folder="pictures" />
+        {:else}
+          <h5>Nothing here yet!</h5>
+        {/if}
       </div>
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingThree">
+    <h5 class="accordion-header" id="flush-headingThree">
       <button
         class="accordion-button collapsed fw-bold"
         type="button"
@@ -110,14 +122,18 @@
       >
         Misc Files
       </button>
-    </h2>
+    </h5>
     <div
       id="flush-collapseFour"
       class="accordion-collapse collapse"
       aria-labelledby="flush-headingThree"
     >
       <div class="accordion-body">
-        <Filetable data={files.misc} folder="misc"/>
+        {#if files.misc.length > 0}
+          <Filetable data={files.misc} folder="misc" />
+        {:else}
+          <h5>Nothing here yet!</h5>
+        {/if}
       </div>
     </div>
   </div>
