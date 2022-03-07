@@ -49,7 +49,7 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow folder="work"/>
+        <UploadRow folder="work" />
         {#if files.work.length > 0}
           <Filetable data={files.work} folder="work" />
         {/if}
@@ -76,7 +76,7 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow folder="clients"/>
+        <UploadRow folder="clients" />
         {#if files.clients.length > 0}
           <Filetable data={files.clients} folder="clients" />
         {/if}
@@ -130,7 +130,7 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow folder="misc"/>
+        <UploadRow folder="misc" />
         {#if files.misc.length > 0}
           <Filetable data={files.misc} folder="misc" />
         {/if}
