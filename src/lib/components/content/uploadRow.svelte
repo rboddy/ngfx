@@ -9,6 +9,7 @@
   const storage = getStorage();
 
   export let folder;
+  export let functionProp = () => {};
 
   onMount(() => {
     const path = `${get(userId)}/${folder}`;
@@ -18,6 +19,7 @@
       let storageRef = ref(storage, `${path}/${upload.name}`);
       uploadBytes(storageRef, upload).then((snapshot) => {
         console.log("Uploaded a blob or file!");
+        functionProp();
       });
     });
   });

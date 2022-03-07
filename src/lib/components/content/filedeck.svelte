@@ -4,32 +4,43 @@
   import { getStorage, ref, getMetadata, listAll } from "firebase/storage";
   import { userId } from "../../../stores/authStore";
   import { onMount } from "svelte";
+  import { get } from "svelte/store";
 
   const storage = getStorage();
   const refs = ["work", "clients", "pictures", "misc"];
-  let files = {
+  $: files = {
     work: [],
     clients: [],
     pictures: [],
     misc: [],
   };
 
+  function getFileData(user) {
+    files = {
+      work: [],
+      clients: [],
+      pictures: [],
+      misc: [],
+    };
+    refs.forEach((folder) => {
+      let reference = ref(storage, `${user}/${folder}`);
+      listAll(reference)
+        .then((res) => {
+          res.items.forEach((itemRef) => {
+            getMetadata(itemRef).then((metaData) => {
+              files[folder] = [...files[folder], metaData];
+            });
+          });
+        })
+        .catch((error) => {});
+    });
+  }
+
   onMount(() => {
     let user = "";
     userId.subscribe((value) => {
       user = value;
-      refs.forEach((folder) => {
-        let reference = ref(storage, `${user}/${folder}`);
-        listAll(reference)
-          .then((res) => {
-            res.items.forEach((itemRef) => {
-              getMetadata(itemRef).then((metaData) => {
-                files[folder] = [...files[folder], metaData];
-              });
-            });
-          })
-          .catch((error) => {});
-      });
+      getFileData(user);
     });
   });
 </script>
@@ -55,7 +66,10 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow folder="work" />
+        <UploadRow
+          folder="work"
+          functionProp={() => getFileData(get(userId))}
+        />
         {#if files.work.length > 0}
           <Filetable data={files.work} folder="work" />
         {/if}
