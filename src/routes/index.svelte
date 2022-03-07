@@ -5,20 +5,21 @@
 
   import { getAuth, onAuthStateChanged } from "firebase/auth";
   import { goto } from "$app/navigation";
+  import { browser } from "$app/env";
 
   const auth = getAuth();
-  onMount(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        userId.update(() => uid);
-        isLoggedIn.update(() => true);
-      } else {
-        userId.update(() => "");
-        isLoggedIn.update(() => false);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      userId.update(() => uid);
+      isLoggedIn.update(() => true);
+    } else {
+      userId.update(() => "");
+      isLoggedIn.update(() => false);
+      if (browser) {
         goto("/login");
       }
-    });
+    }
   });
 </script>
 
