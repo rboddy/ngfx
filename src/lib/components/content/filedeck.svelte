@@ -2,6 +2,8 @@
   import Filetable from "./filetable.svelte";
   import UploadRow from "./uploadRow.svelte";
   import { getStorage, ref, getMetadata, listAll } from "firebase/storage";
+  import { userId } from "../../../stores/authStore";
+  import { onMount } from "svelte";
 
   const storage = getStorage();
   const refs = ["work", "clients", "pictures", "misc"];
@@ -12,19 +14,23 @@
     misc: [],
   };
 
-  refs.forEach((folder) => {
-    let reference = ref(storage, folder);
-    listAll(reference)
-      .then((res) => {
-        res.items.forEach((itemRef) => {
-          getMetadata(itemRef).then((metaData) => {
-            files[folder] = [...files[folder], metaData];
-          });
-        });
-      })
-      .catch((error) => {
-        // Uh-oh, an error occurred!
+  onMount(() => {
+    let user = "";
+    userId.subscribe((value) => {
+      user = value;
+      refs.forEach((folder) => {
+        let reference = ref(storage, `${user}/${folder}`);
+        listAll(reference)
+          .then((res) => {
+            res.items.forEach((itemRef) => {
+              getMetadata(itemRef).then((metaData) => {
+                files[folder] = [...files[folder], metaData];
+              });
+            });
+          })
+          .catch((error) => {});
       });
+    });
   });
 </script>
 
