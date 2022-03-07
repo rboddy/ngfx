@@ -71,7 +71,11 @@
           functionProp={() => getFileData(get(userId))}
         />
         {#if files.work.length > 0}
-          <Filetable data={files.work} folder="work" />
+          <Filetable
+            data={files.work}
+            folder="work"
+            functionProp={() => getFileData(get(userId))}
+          />
         {/if}
       </div>
     </div>

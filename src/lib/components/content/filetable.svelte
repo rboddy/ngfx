@@ -1,5 +1,10 @@
 <script>
-  import { getStorage, ref, getDownloadURL } from "firebase/storage";
+  import {
+    getStorage,
+    ref,
+    getDownloadURL,
+    deleteObject,
+  } from "firebase/storage";
   import { get } from "svelte/store";
   import { userId } from "../../../stores/authStore";
 
@@ -24,9 +29,23 @@
         console.error(error);
       });
   }
+  function deleteFile(path) {
+    const fileRef = ref(storage, path);
+
+    // Delete the file
+    window.confirm("Permanently delete this file?");
+    deleteObject(fileRef)
+      .then(() => {
+        functionProp();
+      })
+      .catch((error) => {
+        // Uh-oh, an error occurred!
+      });
+  }
 
   export let data;
   export let folder;
+  export let functionProp = () => {};
 </script>
 
 <table class="table">
@@ -50,7 +69,11 @@
             on:click={() => downloadFile(`${get(userId)}/${folder}/${name}`)}
             >Download</button
           >
-          <button class="btn btn-danger">Delete</button>
+          <button
+            class="btn btn-danger"
+            on:click={() => deleteFile(`${get(userId)}/${folder}/${name}`)}
+            >Delete</button
+          >
         </td>
       </tr>
     {/each}
