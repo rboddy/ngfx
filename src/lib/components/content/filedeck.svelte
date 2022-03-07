@@ -100,9 +100,16 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow folder="clients" />
+        <UploadRow
+          folder="clients"
+          functionProp={() => getFileData(get(userId))}
+        />
         {#if files.clients.length > 0}
-          <Filetable data={files.clients} folder="clients" />
+          <Filetable
+            data={files.clients}
+            folder="clients"
+            functionProp={() => getFileData(get(userId))}
+          />
         {/if}
       </div>
     </div>
@@ -127,9 +134,16 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow folder="pictures" />
+        <UploadRow
+          folder="pictures"
+          functionProp={() => getFileData(get(userId))}
+        />
         {#if files.pictures.length > 0}
-          <Filetable data={files.pictures} folder="pictures" />
+          <Filetable
+            data={files.pictures}
+            folder="pictures"
+            functionProp={() => getFileData(get(userId))}
+          />
         {/if}
       </div>
     </div>
@@ -154,9 +168,16 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow folder="misc" />
+        <UploadRow
+          folder="misc"
+          functionProp={() => getFileData(get(userId))}
+        />
         {#if files.misc.length > 0}
-          <Filetable data={files.misc} folder="misc" />
+          <Filetable
+            data={files.misc}
+            folder="misc"
+            functionProp={() => getFileData(get(userId))}
+          />
         {/if}
       </div>
     </div>
