@@ -5,7 +5,6 @@
   import { getStorage, ref, uploadBytes } from "firebase/storage";
   import { userId } from "../../../stores/authStore";
   import { get } from "svelte/store";
-  import { goto } from "$app/navigation";
 
   const storage = getStorage();
 
@@ -19,7 +18,6 @@
       let storageRef = ref(storage, `${path}/${upload.name}`);
       uploadBytes(storageRef, upload).then((snapshot) => {
         console.log("Uploaded a blob or file!");
-        goto("/");
       });
     });
   });
