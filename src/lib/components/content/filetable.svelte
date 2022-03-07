@@ -41,7 +41,7 @@
     {#each data as { name, timeCreated, size }}
       <tr>
         <th scope="row">{name}</th>
-        <td>{timeCreated}</td>
+        <td>{timeCreated.substring(0, 10)}</td>
         <td>{bytesToSize(size)}</td>
         <td>
           <button
