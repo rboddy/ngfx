@@ -1,5 +1,7 @@
 <script>
   import { getStorage, ref, getDownloadURL } from "firebase/storage";
+  import { get } from "svelte/store";
+  import { userId } from "../../../stores/authStore";
 
   function bytesToSize(bytes) {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -12,7 +14,6 @@
   const storage = getStorage();
 
   function downloadFile(path) {
-    console.log("working");
     getDownloadURL(ref(storage, path))
       .then((url) => {
         const link = document.createElement("a");
@@ -46,7 +47,8 @@
         <td>
           <button
             class="btn btn-primary"
-            on:click={() => downloadFile(`${folder}/${name}`)}>Download</button
+            on:click={() => downloadFile(`${get(userId)}/${folder}/${name}`)}
+            >Download</button
           >
           <button class="btn btn-danger">Delete</button>
         </td>
