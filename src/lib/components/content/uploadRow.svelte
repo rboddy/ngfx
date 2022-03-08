@@ -15,6 +15,7 @@
     const path = `${get(userId)}/${folder}`;
 
     let myDropzone = new Dropzone(`#my-form-${folder}`);
+    myDropzone.options.disablePreviews = true;
     myDropzone.on("addedfile", (upload) => {
       let storageRef = ref(storage, `${path}/${upload.name}`);
       uploadBytes(storageRef, upload).then((snapshot) => {
