@@ -1,0 +1,5 @@
+from node:latest
+COPY . .
+RUN npm i
+WORKDIR ./build
+ENTRYPOINT ["node", "index.js"]
