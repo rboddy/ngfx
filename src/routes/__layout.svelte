@@ -1,19 +1,29 @@
 <script>
   import Navbar from "$lib/components/layout/navbar.svelte";
   import Header from "$lib/components/layout/header.svelte";
-  import { initializeApp } from "firebase/app";
+  import App from "./fb";
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCk_G2jEhyeZrIqdX7L2U8oUfq7S2januM",
-    authDomain: "ngfx-dd48b.firebaseapp.com",
-    projectId: "ngfx-dd48b",
-    storageBucket: "ngfx-dd48b.appspot.com",
-    messagingSenderId: "599552784740",
-    appId: "1:599552784740:web:7caf3d8e940d6a124b6271",
-  };
+  import { onMount } from "svelte";
+  import { userId, isLoggedIn } from "../stores/authStore";
 
-  initializeApp(firebaseConfig);
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import { goto } from "$app/navigation";
+  import { browser } from "$app/env";
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      userId.update(() => uid);
+      isLoggedIn.update(() => true);
+    } else {
+      userId.update(() => "");
+      isLoggedIn.update(() => false);
+      if (browser) {
+        goto("/login");
+      }
+    }
+  });
 </script>
 
 <Navbar />
