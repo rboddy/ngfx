@@ -19,7 +19,8 @@
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          localStorage.setItem("uid", user.uid);
+          localStorage.setItem("isLoggedIn", true);
           goto("/");
         })
         .catch((error) => {

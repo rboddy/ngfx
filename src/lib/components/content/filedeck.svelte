@@ -2,9 +2,7 @@
   import Filetable from "./filetable.svelte";
   import UploadRow from "./uploadRow.svelte";
   import { getStorage, ref, getMetadata, listAll } from "firebase/storage";
-  import { userId } from "../../../stores/authStore";
   import { onMount } from "svelte";
-  import { get } from "svelte/store";
 
   const storage = getStorage();
   const refs = ["work", "clients", "pictures", "misc"];
@@ -15,13 +13,14 @@
     misc: [],
   };
 
-  function getFileData(user) {
+  function getFileData() {
     files = {
       work: [],
       clients: [],
       pictures: [],
       misc: [],
     };
+    const user = localStorage.getItem("uid");
     refs.forEach((folder) => {
       let reference = ref(storage, `${user}/${folder}`);
       listAll(reference)
@@ -38,10 +37,7 @@
 
   onMount(() => {
     let user = "";
-    userId.subscribe((value) => {
-      user = value;
-      getFileData(user);
-    });
+    getFileData();
   });
 </script>
 
@@ -66,15 +62,12 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow
-          folder="work"
-          functionProp={() => getFileData(get(userId))}
-        />
+        <UploadRow folder="work" functionProp={() => getFileData()} />
         {#if files.work.length > 0}
           <Filetable
             data={files.work}
             folder="work"
-            functionProp={() => getFileData(get(userId))}
+            functionProp={() => getFileData()}
           />
         {/if}
       </div>
@@ -100,15 +93,12 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow
-          folder="clients"
-          functionProp={() => getFileData(get(userId))}
-        />
+        <UploadRow folder="clients" functionProp={() => getFileData()} />
         {#if files.clients.length > 0}
           <Filetable
             data={files.clients}
             folder="clients"
-            functionProp={() => getFileData(get(userId))}
+            functionProp={() => getFileData()}
           />
         {/if}
       </div>
@@ -134,15 +124,12 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow
-          folder="pictures"
-          functionProp={() => getFileData(get(userId))}
-        />
+        <UploadRow folder="pictures" functionProp={() => getFileData()} />
         {#if files.pictures.length > 0}
           <Filetable
             data={files.pictures}
             folder="pictures"
-            functionProp={() => getFileData(get(userId))}
+            functionProp={() => getFileData()}
           />
         {/if}
       </div>
@@ -168,15 +155,12 @@
       data-bs-parent="#fileAccordion"
     >
       <div class="accordion-body">
-        <UploadRow
-          folder="misc"
-          functionProp={() => getFileData(get(userId))}
-        />
+        <UploadRow folder="misc" functionProp={() => getFileData()} />
         {#if files.misc.length > 0}
           <Filetable
             data={files.misc}
             folder="misc"
-            functionProp={() => getFileData(get(userId))}
+            functionProp={() => getFileData()}
           />
         {/if}
       </div>

@@ -3,8 +3,6 @@
   import Dropzone from "dropzone";
   import { onMount } from "svelte";
   import { getStorage, ref, uploadBytes } from "firebase/storage";
-  import { userId } from "../../../stores/authStore";
-  import { get } from "svelte/store";
 
   const storage = getStorage();
 
@@ -12,7 +10,8 @@
   export let functionProp = () => {};
 
   onMount(() => {
-    const path = `${get(userId)}/${folder}`;
+    const userId = localStorage.getItem("uid");
+    const path = `${userId}/${folder}`;
 
     let myDropzone = new Dropzone(`#my-form-${folder}`);
     myDropzone.options.disablePreviews = true;

@@ -8,6 +8,7 @@
   function logout() {
     signOut(auth)
       .then(() => {
+        localStorage.removeItem("uid");
         goto("/login");
       })
       .catch((error) => {

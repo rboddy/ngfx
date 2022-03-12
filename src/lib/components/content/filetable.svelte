@@ -5,8 +5,6 @@
     getDownloadURL,
     deleteObject,
   } from "firebase/storage";
-  import { get } from "svelte/store";
-  import { userId } from "../../../stores/authStore";
 
   function bytesToSize(bytes) {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -18,7 +16,9 @@
 
   const storage = getStorage();
 
-  function downloadFile(path) {
+  function downloadFile(folder, name) {
+    const uid = localStorage.getItem("uid");
+    let path = `${uid}/${folder}/${name}`;
     getDownloadURL(ref(storage, path))
       .then((url) => {
         const link = document.createElement("a");
@@ -29,7 +29,9 @@
         console.error(error);
       });
   }
-  function deleteFile(path) {
+  function deleteFile(folder, name) {
+    const uid = localStorage.getItem("uid");
+    let path = `${uid}/${folder}/${name}`;
     const fileRef = ref(storage, path);
 
     // Delete the file
@@ -66,13 +68,11 @@
         <td>
           <button
             class="btn btn-primary"
-            on:click={() => downloadFile(`${get(userId)}/${folder}/${name}`)}
-            >Download</button
+            on:click={() => downloadFile(folder, name)}>Download</button
           >
           <button
             class="btn btn-danger"
-            on:click={() => deleteFile(`${get(userId)}/${folder}/${name}`)}
-            >Delete</button
+            on:click={() => deleteFile(folder, name)}>Delete</button
           >
         </td>
       </tr>

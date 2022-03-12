@@ -1,28 +1,25 @@
 <script>
   import Navbar from "$lib/components/layout/navbar.svelte";
   import Header from "$lib/components/layout/header.svelte";
+  import { isLoggedIn } from "../stores/authStore";
   import App from "./fb";
 
   import { onMount } from "svelte";
-  import { userId, isLoggedIn } from "../stores/authStore";
 
   import { getAuth, onAuthStateChanged } from "firebase/auth";
   import { goto } from "$app/navigation";
-  import { browser } from "$app/env";
 
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      userId.update(() => uid);
-      isLoggedIn.update(() => true);
-    } else {
-      userId.update(() => "");
-      isLoggedIn.update(() => false);
-      if (browser) {
+  onMount(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("Welcome to NGFX");
+        isLoggedIn.update(() => true);
+      } else {
+        isLoggedIn.update(() => false);
         goto("/login");
       }
-    }
+    });
   });
 </script>
 
